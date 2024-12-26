@@ -8,21 +8,26 @@ from RotorBladeSortingEnv import RotorBladeSortingEnv
 from ActorLSTM import ActorLSTM
 from CriticLSTM import CriticLSTM
 
-num_blades = 40  # 叶片数量
-
-# 定义每个叶片的质量
-blade_masses = mass_matrix = [40.953, 40.269, 40.985, 41.197, 40.514, 40.414, 40.356, 39.943, 41.077,
-                              41.164, 40.861, 40.455, 40.975, 40.055, 40.13, 40.818, 41.153, 40.463,
-                              40.907, 40.496, 40.949, 39.994, 40.494, 41.11, 40.636, 41.168, 40.023,
-                              40.427, 40.089, 40.115, 40.726, 40.535, 40.69, 41.009, 39.9, 41.045,
-                              40.9, 39.815, 41.137, 41.019]
-
-# 定义转子的旋转半径（所有叶片一致）
-rotation_radius = 88  # 例如，单位为米
-
-# 定义叶盘的不平衡量大小和角度
-rotor_unbalance_magnitude = 0  # 例如，单位与质量×半径一致
-rotor_unbalance_angle = np.pi / 4  # 45度，单位为弧度
+# num_blades = 40  # 叶片数量
+#
+# # 定义每个叶片的质量
+# blade_masses = mass_matrix = [40.953, 40.269, 40.985, 41.197, 40.514, 40.414, 40.356, 39.943, 41.077,
+#                               41.164, 40.861, 40.455, 40.975, 40.055, 40.13, 40.818, 41.153, 40.463,
+#                               40.907, 40.496, 40.949, 39.994, 40.494, 41.11, 40.636, 41.168, 40.023,
+#                               40.427, 40.089, 40.115, 40.726, 40.535, 40.69, 41.009, 39.9, 41.045,
+#                               40.9, 39.815, 41.137, 41.019]
+#
+# # 定义转子的旋转半径（所有叶片一致）
+# rotation_radius = 88
+#
+# # 定义叶盘的不平衡量大小和角度
+# rotor_unbalance_magnitude = 100  # 例如，单位与质量×半径一致
+# rotor_unbalance_angle = np.pi / 4  # 45度，单位为弧度
+num_blades = 10
+blade_masses = [1.0, 1.2, 0.9, 1.1, 1.0, 1.3, 0.95, 1.05, 1.15, 1.0]
+rotation_radius = 1
+rotor_unbalance_magnitude = 0
+rotor_unbalance_angle = 0
 
 env = RotorBladeSortingEnv(num_blades, blade_masses, rotation_radius, rotor_unbalance_magnitude, rotor_unbalance_angle)
 
@@ -32,7 +37,7 @@ hidden_dim = 128
 num_actions = env.action_space.n
 learning_rate = 1e-3
 gamma = 0.99  # 折扣因子
-num_episodes = 1000
+num_episodes = 10000
 
 # 实例化 Actor 和 Critic 网络
 actor = ActorLSTM(input_dim, hidden_dim, num_actions)
